@@ -1,14 +1,24 @@
 (ns oreilly-obsidian-importer.oreilly
-  (:require [me.raynes.fs :as fs]
+  (:require [clojure.data.csv :as csv]
+            [me.raynes.fs :as fs]
             [marge.core :as m]
-            [tech.v3.dataset :as ds]
-            [yaml.core :as y])
+            [yaml.core :as y]
+            [clojure.java.io :as io])
   (:import (java.time.format DateTimeFormatter)))
+
+(defn csv-data->maps [csv-data]
+  (mapv zipmap
+        (->> (first csv-data)                               ;; First row is the header
+             ;(map keyword) ;; Drop if you want string keys instead
+             repeat)
+        (rest csv-data)))
 
 (defn read-file
   "Takes a path/URL and returns a seq of maps"
   [f]
-  (ds/mapseq-reader (ds/->dataset f)))
+  (with-open [reader (io/reader f)]
+    (->> (csv/read-csv reader)
+         (csv-data->maps))))
 
 (defn ->obsidian-filename
   "Takes a string and turns it into an obsidian-safe filename
@@ -19,17 +29,12 @@
       (clojure.string/replace #"/" "%2F")
       (clojure.string/replace #"\\" "%5C")))
 
-(defn format-date
-  [d]
-  (let [formatter (DateTimeFormatter/ofPattern "yyyy-MM-dd")]
-    (.format d formatter)))
-
 (defn ->front-matter
   [x]
   (y/generate-string {:book      {:title (get x "Book Title")
                                   :url   (get x "Book URL")}
                       :chapter   (get x "Chapter URL")
-                      :highlight {:date (format-date (get x "Date of Highlight"))
+                      :highlight {:date (get x "Date of Highlight")
                                   :url  (get x "Highlight URL")}}
                      :dumper-options {:flow-style :block}))
 
@@ -85,5 +90,6 @@
         (fs/mkdir book-path)
         (let [entries (get by-book book)]
           (doseq [entry entries]
-            (spit (str book-path "/" (->filename entry)) (->post entry))))))
+            (spit (str book-path "/" (->filename entry)) (->post entry)))
+          (println (format "Loaded book: %s, with %d highlights/notes" book (count entries))))))
     by-book))

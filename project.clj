@@ -11,11 +11,13 @@
                  ; filesystem utilities
                  [me.raynes/fs "1.4.6"]
                  ; data processing
-                 [techascent/tech.ml.dataset "6.00-beta-7"]]
+                 [org.clojure/data.csv "1.0.0"]]
   :plugins [[io.taylorwood/lein-native-image "0.3.1"]]
   :native-image {:name "ori"                                ;; name of output image, optional
                  ;:graal-bin "/path/to/graalvm/"             ;; path to GraalVM home, optional
-                 :opts      ["--no-fallback"]
+                 :opts      ["--no-fallback"
+                             "--report-unsupported-elements-at-runtime"
+                             "--initialize-at-build-time"]
                  }                                          ;; pass-thru args to GraalVM native-image, optional
   :main ^:skip-aot oreilly-obsidian-importer.core
   :target-path "target/%s"
