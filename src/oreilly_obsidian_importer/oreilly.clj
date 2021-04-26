@@ -88,14 +88,12 @@
   [root-dir entries]
   (let [by-book (group-by (fn [x] (get x "Book Title")) entries)
         books-path root-dir]
-    (when-not (fs/exists? books-path)
-      (println "Making dir: " books-path)
-      (fs/mkdirs books-path))
+    (fs/mkdirs books-path)
     (doseq [book-name (keys by-book)]
       (let [book-name (clojure.string/trim book-name)
             book-path (str books-path "/" book-name)
             book-filename (->obsidian-filename (format "%s.md" book-name))]
-        (fs/mkdir book-path)
+        (fs/mkdirs book-path)
         ; creates main md file for the book (to which highlights are backlinked)
         (spit (str book-path "/" book-filename) (->book (first (get by-book book-name))))
         (let [entries (get by-book book-name)]

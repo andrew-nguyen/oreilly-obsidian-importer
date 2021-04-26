@@ -1,4 +1,4 @@
-(defproject oreilly-obsidian-importer "0.1.0"
+(defproject oreilly-obsidian-importer "0.1.1"
   :description ""
   :url "https://github.com/andrew-nguyen/oreilly-obsidian-importer"
   :license {:name "Apache License, Version 2.0"
@@ -7,7 +7,7 @@
                  ; YAML front matter
                  [io.forward/yaml "1.0.10"]
                  ; markdown generator
-                 [andrew-nguyen/marge "0.16.0"]
+                 [org.clojars.andrew-nguyen/marge "0.16.0"]
                  ; filesystem utilities
                  [me.raynes/fs "1.4.6"]
                  ; data processing
