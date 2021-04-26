@@ -40,13 +40,13 @@
 
 (defn ->post
   "Generates the post markdown for a given entry"
-  [x]
+  [book-name x]
   (format "---\n%s---\n\n%s"
           (->front-matter x)
           (str
             (m/markdown
               [:h2 "Book"])
-            (get x "Book Title") "\n\n"
+            (format "[[%s]]\n\n" book-name)
             (m/markdown
               [:h2 "Chapter"])
             (get x "Chapter URL") "\n\n"
@@ -60,6 +60,12 @@
               (if (empty? note)
                 "None"
                 note)))))
+
+(defn ->book
+  [book]
+  (str (m/markdown
+         [:h1 (get book "Book Title")]) "\n"
+       (get book "Book URL")))
 
 (defn ->filename
   "Generates filename for given entry"
@@ -81,15 +87,19 @@
           |_various highlight.md files"
   [root-dir entries]
   (let [by-book (group-by (fn [x] (get x "Book Title")) entries)
-        books-path (str root-dir "/Books")]
+        books-path root-dir]
     (when-not (fs/exists? books-path)
       (println "Making dir: " books-path)
       (fs/mkdirs books-path))
-    (doseq [book (keys by-book)]
-      (let [book-path (str books-path "/" (clojure.string/trim book))]
+    (doseq [book-name (keys by-book)]
+      (let [book-name (clojure.string/trim book-name)
+            book-path (str books-path "/" book-name)
+            book-filename (->obsidian-filename (format "%s.md" book-name))]
         (fs/mkdir book-path)
-        (let [entries (get by-book book)]
+        ; creates main md file for the book (to which highlights are backlinked)
+        (spit (str book-path "/" book-filename) (->book (first (get by-book book-name))))
+        (let [entries (get by-book book-name)]
           (doseq [entry entries]
-            (spit (str book-path "/" (->filename entry)) (->post entry)))
-          (println (format "Loaded book: '%s', with %d highlights/notes" book (count entries))))))
+            (spit (str book-path "/" (->obsidian-filename (->filename entry))) (->post book-name entry)))
+          (println (format "Loaded book: '%s', with %d highlights/notes" book-name (count entries))))))
     by-book))
