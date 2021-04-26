@@ -9,4 +9,4 @@ target/default+uberjar/ori:
 build: target/default+uberjar/ori
 
 release: target/default+uberjar/ori
-	zip -j ori-0.1.0.zip target/default+uberjar/ori
+	zip -j ori-0.1.1.zip target/default+uberjar/ori
