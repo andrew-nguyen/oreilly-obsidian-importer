@@ -1,7 +1,18 @@
 # oreilly-obsidian-importer
 
 Imports CSV file from Safari/O'Reilly that contains highlights and notes to 
-a series of Markdwon files that are compatible with [Obsidian](https://obsidian.md)
+a series of Markdown files that are compatible with [Obsidian](https://obsidian.md)
+
+## Key Features
+
+1. Creates a directory per book title (as specified in the CSV file)
+2. Within each book's directory
+    1. Creates a `<Book Title>.md` file that contains a link to the book's webpage
+    2. Creates a separate Markdown file for each highlight/note based on the 
+       entry's URL (to ensure unique filenames)
+        1. Each highlight's Markdown file contains an 
+           [Obsidian backlink](https://help.obsidian.md/How+to/Working+with+backlinks)
+           to the main page for the book
 
 ## Installation
 
