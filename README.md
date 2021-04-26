@@ -11,8 +11,8 @@ a series of Markdwon files that are compatible with [Obsidian](https://obsidian.
 ## Usage
 
 1. Go to [Safari/O'Reilly](https://learning.oreilly.com/home/)
-2. Select *Highlights* under *Your O'Reilly* (top right)
-3. `path/to/ori <csv file> <directory>`
+2. Select *Highlights* under *Your O'Reilly* (top right) and download CSV file
+3. `path/to/ori <path to csv file> <directory>`
 
 Within the specified directory, ori will create a directory per book and a 
 Markdown file per highlight/note
