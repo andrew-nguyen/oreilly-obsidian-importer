@@ -91,5 +91,5 @@
         (let [entries (get by-book book)]
           (doseq [entry entries]
             (spit (str book-path "/" (->filename entry)) (->post entry)))
-          (println (format "Loaded book: %s, with %d highlights/notes" book (count entries))))))
+          (println (format "Loaded book: '%s', with %d highlights/notes" book (count entries))))))
     by-book))

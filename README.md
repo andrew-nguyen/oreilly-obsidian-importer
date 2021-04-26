@@ -1,44 +1,34 @@
 # oreilly-obsidian-importer
 
-FIXME: description
+Imports CSV file from Safari/O'Reilly that contains highlights and notes to 
+a series of Markdwon files that are compatible with [Obsidian](https://obsidian.md)
 
 ## Installation
 
-Download from http://example.com/FIXME.
+1. Copy the `ori` binary to your path
+2. Setup permissions: `sudo xattr -r -d com.apple.quarantine ori`
 
 ## Usage
 
-FIXME: explanation
+1. Go to [Safari/O'Reilly](https://learning.oreilly.com/home/)
+2. Select *Highlights* under *Your O'Reilly* (top right)
+3. `path/to/ori <csv file> <directory>`
 
-    $ java -jar oreilly-obsidian-importer-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+Within the specified directory, ori will create a directory per book and a 
+Markdown file per highlight/note
 
 ## License
 
-Copyright © 2021 FIXME
+Copyright © 2021 Andrew Nguyen
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at 
 
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

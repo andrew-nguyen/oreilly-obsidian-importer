@@ -1,5 +1,5 @@
-(defproject oreilly-obsidian-importer "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+(defproject oreilly-obsidian-importer "0.1.0"
+  :description ""
   :url "https://github.com/andrew-nguyen/oreilly-obsidian-importer"
   :license {:name "Apache License, Version 2.0"
             :url  "https://www.apache.org/licenses/LICENSE-2.0.txt"}
